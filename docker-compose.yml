@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  react-client:
+    build:
+      context: ./react-frontend/
+      dockerfile: local.Dockerfile
+    volumes:
+      - './react-frontend/:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - flask-api
+  flask-api:
+    build:
+      context: ./flask-backend/
+      dockerfile: Dockerfile
+    command: python -u app.py
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./flask-backend:/simpleFlaskApp
+    depends_on:
+      - mongo
+    user: ${CURRENT_UID}
+    image: test_flask
+  mongo:
+    image: mongo:latest
+    # command: chown -R ${CURRENT_UID} /data/db
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongoData:/data/db
+    # depends_on:
+    #   - fix-mongodb-permissions
+    
