@@ -14,6 +14,7 @@ services:
       - NODE_ENV=development
     depends_on:
       - flask-api
+    image: react_frontend
   flask-api:
     build:
       context: ./flask-backend/
@@ -26,7 +27,7 @@ services:
     depends_on:
       - mongo
     user: ${CURRENT_UID}
-    image: test_flask
+    image: flask_backend
   mongo:
     image: mongo:latest
     # command: chown -R ${CURRENT_UID} /data/db
