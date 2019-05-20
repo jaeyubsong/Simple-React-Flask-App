@@ -1,7 +1,4 @@
 import os
-
-
-
 from flask import Flask, flash, session, redirect, url_for, request, render_template, current_app, jsonify
 from pymongo import MongoClient
 from flask_cors import CORS, cross_origin
@@ -9,11 +6,6 @@ from werkzeug.utils import secure_filename
 
 import json
 import logging
-
-
-UPLOAD_PATH = '../Simple-React-Flask-App/toUpload'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
