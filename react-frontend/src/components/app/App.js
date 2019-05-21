@@ -1,21 +1,20 @@
-import React, { useState, useEffect, useRef} from 'react';
-import ReactDOM from "react-dom";
-import logo from '../../assets/images/logo.svg';
+import React, { useState, useEffect } from 'react';
+//import logo from '../../assets/images/logo.svg';
 import './App.css';
 import axios from 'axios'
 
-const BASE_URI = 'http://localhost:5000'
+//const BASE_URI = 'http://localhost:5000'
 
 
 function App() {
   const [count, setCount] = useState(0);
-  const [data, setData] = useState({ hits: []});
+  const [data, setData] = useState({ hits: [] });
 
   const fetchData = async () => {
     console.log("fetchData is called");
     const result = await axios({
       method: 'post',
-      url: 'http://localhost:5000/getData',
+      url: 'http://localhost:5000/vbs/getData',
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
@@ -52,7 +51,7 @@ function App() {
       </button>
       <br />
       <br />
-      <form action="http://localhost:5000/upload" method="POST" enctype="multipart/form-data"> 
+      <form action="http://localhost:5000/vbs/upload" method="POST" encType="multipart/form-data"> 
         <input type="file" name="toUpload"/>
         <input type="submit" value="Upload"/>     
       
