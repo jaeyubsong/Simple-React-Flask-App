@@ -1,9 +1,9 @@
 import os
-from flask import Flask, flash, session, redirect, url_for, request, render_template, current_app, jsonify
+from flask import Flask, flash, session, redirect, url_for, request, render_template, current_app, jsonify, send_file
 from pymongo import MongoClient
 from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
-from flask_restplus import Api, Resource
+from flask_restplus import Api, Resource, fields
 
 import json
 import logging
@@ -17,35 +17,47 @@ ns = api.namespace('vbs', description='design vbs web')
 client = MongoClient('mongo', 27017)
 db = client.tododb
 
+
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 @ns.route("/")
 class indexClass(Resource):
   def post(self):
     _items = db.tododb.find()
     items = [item for item in _items]
-    return render_template('index.html', items=items)
+    #return render_template('index.html', items=items)
+    return current_app.logger.info(items)
 
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 @ns.route("/new")
+#@ns.doc(params={'name': 'name', 'description': 'description'})
 class newClass(Resource):
-  def put(self):
-    item_doc = {
-      'name': request.form['name'],
-      'description': request.form['description']
-    }
+  def post(self):
+    item_doc = { 'name': '', 'description': '' }
+    #name = request.form.to_dict("name")
+    #current_app.logger.info(name)
+    #description = request.form.to_dict("description")
+    #"current_app.logger.info(description)
+    #item_doc = { 'name': name, 'description': description }
+    item_doc = request.form.to_dict()
+    current_app.logger.info(item_doc)
+    print("Add Object : ", item_doc)
     db.tododb.insert_one(item_doc)
-    print("Added something")
-    return redirect(url_for('index'))
+    #return redirect(url_for('index'))
+    return "Add Successfully" 
 
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 @ns.route("/delete")
 class deleteClass(Resource):
-  def delete(self):
-    name_to_delete = request.form['name_to_delete']
-    db.tododb.remove({"name": name_to_delete })
-    print("\nDelete Successfully\n")
-    return redirect('/')
+  def post(self):
+    name_to_delete = { 'name': '' }
+    name_to_delete = request.form.to_dict()
+    print("Delete Object : ", name_to_delete)
+    current_app.logger.info(name_to_delete)
+    db.tododb.remove(name_to_delete)
 
+    #return redirect('/')
+    return "Delete Successfully" 
+ 
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 @ns.route("/getData")
 class getDataClass(Resource):
@@ -61,81 +73,25 @@ class getDataClass(Resource):
     current_app.logger.info(returnList)
     response = jsonify(returnList)
     #response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return 
 
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 @ns.route("/upload")
 class fileUpload(Resource):
   def post(self):
-   # if request.method == 'POST':
     toUpload = request.files['toUpload']
     current_app.logger.info(toUpload.filename)
     toUpload.save(secure_filename(toUpload.filename))
-    return 'upload successfully'
- 
-#@app.after_request
-#def after_request(response):
-#  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-#  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-#  response.headers.add('Access-Contorl-Allow-Credentials', 'true')
-#  return response
+    
 
-#@app.route("/")
-##class indexClass(Resource):
-#def index():
-#  _items = db.tododb.find()
-#  items = [item for item in _items]
-#  return render_template('index.html', items=items)
+    #read_data = data.read()
+    #stored = fs.put(read_data, filename=str(toUpload.filename))
+    #return {"status": "New image added", "name": list_of_names[id_doc[_id]]}
+    #return 'upload successfully'
+    #return send_file(toUpload.filename)
+    return toUpload.filename
 
 
-#@app.route("/new", methods=['POST', 'GET'])
-##class newClass(Resource):
-#def new():
-#  item_doc = {
-#    'name': request.form['name'],
-#    'description': request.form['description']
-#  }
-#  db.tododb.insert_one(item_doc)
-#  print("Added something")
-#  return redirect(url_for('index'))
-
-
-#@app.route("/delete", methods=['POST'])
-##class deleteClass(Resource):
-#def delete():
-#  name_to_delete = request.form['name_to_delete']
-#  db.tododb.remove({"name": name_to_delete })
-#  print("\nDelete Successfully\n")
-#  return redirect('/')
-
-
-#@app.route("/getData", methods=['POST'])
-#@cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
-##class getDataClass(Resource):
-#def getData():
-#  current_app.logger.info("getData called with data")
-#  _items = db.tododb.find({},{ "_id": 0, "name": 1, "description": 1 })
-#  items = [item for item in _items]
-#  returnList = {"hits": []}
-#  returnList["hits"] = items
-#  current_app.logger.info(items)
-#  current_app.logger.info(json.dumps(items))
-#  current_app.logger.info(jsonify(items))
-#  current_app.logger.info(returnList)
-#  response = jsonify(returnList)
-#  #response.headers.add('Access-Control-Allow-Origin', '*')
-#  return response
-
-
-#@app.route("/upload", methods=['POST', 'GET'])
-#@cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
-##class fileUpload(Resource):
-#def fileUpload():
-#  if request.method == 'POST':
-#    toUpload = request.files['toUpload']
-#    current_app.logger.info(toUpload.filename)
-#    toUpload.save(secure_filename(toUpload.filename))
-#    return 'upload successfully'
 
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)

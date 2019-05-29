@@ -19,19 +19,9 @@ function App() {
         "Access-Control-Allow-Origin": "*"
       }
     });
-    console.log("Data is set is called");
-    console.log("Result is " + result.data)
-    setData(result.data);
-    console.log("Finished setting data");
-  
-  }
+    
+  } 
 
-
-  useEffect(() => {
-    console.log("useEffect is called");
-    console.log("Call fetch data");
-    fetchData();
-  }, [])
 
 
   return (
@@ -40,6 +30,7 @@ function App() {
       <button onClick={() => {
         console.log("Increase count");
         setCount(count + 1);
+        setData({ hits: [count] });
       }}>
         click to increase count
       </button>
@@ -54,22 +45,25 @@ function App() {
       <form action="http://localhost:5000/vbs/upload" method="POST" encType="multipart/form-data"> 
         <input type="file" name="toUpload"/>
         <input type="submit" value="Upload"/>     
+      </form>
       
-        <ul>
-          {console.log("Making unordered list")}        
-          {data.hits.map(item => (
-            <li key={item.name}>
-            {console.log("Item")}
-            <h3>{item.name}</h3> 
-            {item.description}
-            </li>
-          ))}
-        </ul>
+      <form action="http://localhost:5000/vbs/new" method='POST'>
+        <label>Name and Description to Add:</label>
+        <input type="text"  name="name" />        
+        <input type="text"  name="description" />        
+        <input type="submit" value="Save" />        
+      </form>
+      
+      <form action="http://localhost:5000/vbs/delete" method='POST'>
+        <label>Name to remove:</label>
+        <input type="text"  name="name" />
+        <input type="submit"  value="Delete" />
       </form>
 
+       
     </div>
     
   );
-}
+};
 
 export default App;
