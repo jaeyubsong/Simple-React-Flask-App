@@ -29,7 +29,7 @@ services:
     user: ${CURRENT_UID}
     image: flask_backend
   mongo:
-    image: mongo:latest
+    image: mongo:4.0.10
     # command: chown -R ${CURRENT_UID} /data/db
     ports:
       - "27017:27017"
@@ -37,4 +37,14 @@ services:
       - ./mongoData:/data/db
     # depends_on:
     #   - fix-mongodb-permissions
+  pixel_link:
+    build:
+      context: ./flask-backend/docker_models/pixel_link
+      dockerfile: Dockerfile
+    container_name: pixel_link_container
+  aster:
+    build:
+      context: ./flask-backend/docker_models/aster
+      dockerfile: Dockerfile
+    container_name: aster_container
     

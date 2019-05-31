@@ -22,7 +22,7 @@ $ ssh USERNAME@"SERVER_IP_ADDRESS" -L localhost:3000:localhost:3000
 ```
 $ git clone https://github.com/jsong0327/Simple-React-Flask-App.git
 $ cd Simple-React-Flask-App
-$ docker-compose build
+$ docker-compose build --no-cache
 ```
 
 ### Run docker environment
