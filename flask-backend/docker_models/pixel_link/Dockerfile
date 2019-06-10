@@ -89,7 +89,8 @@ RUN git clone https://github.com/circulosmeos/gdown.pl.git \
 && unzip pixel_link_vgg_4s.zip \
 && rm pixel_link_vgg_4s.zip
 
-RUN git clone https://github.com/ZJULearning/pixel_link.git \
+#RUN git clone https://github.com/ZJULearning/pixel_link.git \
+RUN git clone https://github.com/sungjune-p/pixel_link.git \
 && cd /pixel_link_workdir/pixel_link \
 && git clone https://github.com/dengdan/pylib.git
 ENV PYTHONPATH=${PYTHONPATH}:/pixel_link_workdir/pixel_link/pylib/src:$PYTHONPATH
