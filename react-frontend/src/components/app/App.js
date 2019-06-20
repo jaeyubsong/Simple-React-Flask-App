@@ -3,12 +3,17 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios'
 
+import SearchResult from '../searchPage/SearchResult'
+
+
 //const BASE_URI = 'http://localhost:5000'
+
 
 
 function App() {
   const [count, setCount] = useState(0);
   const [data, setData] = useState({ hits: [] });
+
 
   const fetchData = async () => {
     console.log("fetchData is called");
@@ -59,8 +64,7 @@ function App() {
         <input type="text"  name="name" />
         <input type="submit"  value="Delete" />
       </form>
-
-       
+    <SearchResult />
     </div>
     
   );

@@ -42,9 +42,13 @@ services:
       context: ./flask-backend/docker_models/pixel_link
       dockerfile: Dockerfile
     container_name: pixel_link_container
+    depends_on:
+      - mongo
   aster:
     build:
       context: ./flask-backend/docker_models/aster
       dockerfile: Dockerfile
     container_name: aster_container
+    depends_on:
+      - mongo
     
