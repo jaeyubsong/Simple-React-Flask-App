@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import Select from "react-dropdown-select";
+import Select from 'react-select';
 import Box from '@material-ui/core/Box'
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
@@ -58,7 +58,7 @@ function SearchPage() {
 
   const addClass = () => {
     console.log("Add class called\n");
-    const tempArray = [...classInfo, {class: "", number: ''}];
+    const tempArray = [...classInfo, {class: "", number: 0}];
     setClassInfo(tempArray);
   }
 
@@ -93,13 +93,13 @@ function SearchPage() {
               {console.log(mapData)}
               <Select
                 options={options}
-                searchable="true"
-                labelField="class"
+                // searchable="true"
+                // labelField="class"
                 // clearable="true"
-                values={[{class: mapData.class}]}
-                onChange={(value) => {
+                value={[{label: mapData.class}]}
+                onChange={(option) => {
                   // console.log(`%c > onClassChange `, 'background: #555; color: tomato', value[0].class);
-                  changeClass(mapIndex, value[0].class, mapData.number);
+                  changeClass(mapIndex, option.value, mapData.number);
                   // initialClassInfo[mapIndex] = {class: value[0].class, number: mapData.number}
                   // setClassInfo(initialClassInfo);
                 }

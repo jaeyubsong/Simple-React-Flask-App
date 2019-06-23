@@ -1,24 +1,24 @@
 export const options = [
   {
-    class: "person"
+    value: "person", label: "person"
   },
   {
-    class: "bicycle"
+    value: "bicycle", label: "bicycle"
   },
   {
-    class: "car"
+    value: "car", label: "car"
   },
   {
-    class: "motorcycle"
+    value: "motorcycle", label: "motorcycle"
   },
   {
-    class: "airplane"
+    value: "airplane", label: "airplane"
   },
   {
-    class: "bus"
+    value: "bus", label: "bus"
   },
   {
-    class: "train"
+    value: "train", label: "train"
   }
 ]
 
