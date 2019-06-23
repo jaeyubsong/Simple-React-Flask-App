@@ -31,7 +31,7 @@ function SearchResult() {
   const sampleData = getImage();
   return (
     <div className="searchResult">
-      {console.log("ASDASDASDASD")}
+      {console.log("Rendering searchResult")}
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Grid container justify="center" spacing={2}>
