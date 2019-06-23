@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios'
 
-import SearchResult from '../searchPage/SearchResult'
+import SearchResult from '../search/SearchResult'
+import SearchPage from '../search/SearchPage';
 
 
 //const BASE_URI = 'http://localhost:5000'
@@ -64,7 +65,16 @@ function App() {
         <input type="text"  name="name" />
         <input type="submit"  value="Delete" />
       </form>
-    <SearchResult />
+
+      <form action="http://localhost:5000/vbs/dssss" method='POST'>
+        <label>Search:</label>
+        <input type="text"  name="name" />
+        <input type="text"  name="name" />
+        <input type="text"  name="name" />
+        <input type="submit"  value="Delete" />
+      </form>
+      <SearchPage />
+      <SearchResult />
     </div>
     
   );
