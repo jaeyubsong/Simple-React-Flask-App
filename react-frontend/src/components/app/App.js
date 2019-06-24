@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios'
 
-import SearchResult from '../search/SearchResult'
-import SearchPage from '../search/SearchPage';
+import SearchPage from '../search/SearchPage'
 
 
 //const BASE_URI = 'http://localhost:5000'
@@ -74,7 +73,6 @@ function App() {
         <input type="submit"  value="Delete" />
       </form>
       <SearchPage />
-      <SearchResult />
     </div>
     
   );
