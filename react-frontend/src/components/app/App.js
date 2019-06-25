@@ -24,6 +24,7 @@ function App() {
         "Access-Control-Allow-Origin": "*"
       }
     });
+    console.log(result)
 
   }
 

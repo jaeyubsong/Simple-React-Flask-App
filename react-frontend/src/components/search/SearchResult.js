@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 
 import ResultBox from './ResultBox'
-import sampleImage from '../../assets/images/SonHeungMin.jpg'
+import sampleImage from 'assets/images/SonHeungMin.jpg'
 
 // const BASE_URI = 'http://localhost:5000'
 
@@ -30,18 +30,18 @@ function getImage () {
   return sampleData
 }
 
-function SearchResult () {
+function SearchResult (props) {
   const [spacing] = useState(2)
 
   const sampleData = getImage()
   return (
     <div className='searchResult'>
-      {console.log('Rendering searchResult')}
+      {props.searchComplete == true && 
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Grid container justify='center' spacing={2}>
-            {sampleData.data.map(value => (
-              <Grid key={value} item>
+            {sampleData.data.map((value, index) => (
+              <Grid key={index} item>
                 <ResultBox
                   imageSrc={sampleImage}
                   width={100}
@@ -52,6 +52,8 @@ function SearchResult () {
           </Grid>
         </Grid>
       </Grid>
+      }
+
     </div>
   )
 }

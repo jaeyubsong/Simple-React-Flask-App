@@ -29,10 +29,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// const initialClassInfo = [{class: "lion", number: 0}, 
-//                           {class: "car", number: 5}, 
-//                           {class: "ball", number: 2}];
-
 
 const SearchCondition = (props) => {
 
@@ -41,8 +37,8 @@ const SearchCondition = (props) => {
   const initialClassInfo = [{ class: "lion", number: 0 },
   { class: "car", number: 5 },
   { class: "ball", number: 2 }];
-  
-  const initialOcrInfo = [ { text: "flex" }, { text: "nike" }];
+
+  const initialOcrInfo = [{ text: "flex" }, { text: "nike" }];
 
   const [count, setCount] = useState(0)
   const [classInfo, setClassInfo] = useState(initialClassInfo)
@@ -54,53 +50,37 @@ const SearchCondition = (props) => {
     // setClassInfo(initialClassInfo);
   }, [])
 
-  const addClass = () => {
-    console.log("Add class called\n");
-    const tempArray = [...classInfo, { class: "", number: 0 }];
-    setClassInfo(tempArray);
+  const addSearchOption = (infoArray, setInfoArray, initialObject) => () => {
+    const tempArray = [...infoArray, initialObject];
+    setInfoArray(tempArray);
   }
 
-  const removeClass = (myIndex) => {
-    console.log("Remove class called with index %d", myIndex);
-    const tempArray = [...classInfo];
+  const removeSearchOption = (infoArray, setInfoArray) => (myIndex) => {
+    const tempArray = [...infoArray];
     tempArray.splice(myIndex, 1);
-    console.log(tempArray)
-    setClassInfo(tempArray);
+    setInfoArray(tempArray);
   }
 
-  const changeClass = (myIndex, myClass, myNumber) => {
-    console.log("Change class called");
-    const tempArray = [...classInfo];
-    tempArray[myIndex] = { class: myClass, number: myNumber };
-    setClassInfo(tempArray);
-  };
-
-  const addOcr = () => {
-    console.log("Add Ocr called\n");
-    const tempArray = [...ocrInfo, { text: "" }];
-    setOcrInfo(tempArray);
+  const changeSearchOption = (infoArray, setInfoArray) => (myIndex, newObject) => {
+    const tempArray = [...infoArray];
+    tempArray[myIndex] = Object.assign(tempArray[myIndex], newObject);
+    setInfoArray(tempArray);
   }
 
-  const removeOcr = (myIndex) => {
-    console.log("Remove ocr called with index %d", myIndex);
-    const tempArray = [...ocrInfo];
-    tempArray.splice(myIndex, 1);
-    console.log(tempArray);
-    setOcrInfo(tempArray);
-  }
+  const addClass = addSearchOption(classInfo, setClassInfo, { class: "", number: 0 });
+  const removeClass = removeSearchOption(classInfo, setClassInfo);
+  const changeClass = changeSearchOption(classInfo, setClassInfo);
 
-  const changeOcr = (myIndex, myOcr) => {
-    console.log("Change ocr called");
-    const tempArray = [...ocrInfo];
-    tempArray[myIndex] = { text: myOcr };
-    setOcrInfo(tempArray);
-  }
+  const addOcr = addSearchOption(ocrInfo, setOcrInfo, { text: "" });
+  const removeOcr = removeSearchOption(ocrInfo, setOcrInfo);
+  const changeOcr = changeSearchOption(ocrInfo, setOcrInfo);
+
 
 
   return (
     <div>
-      <Grid container spacing={2}>
-        <Grid item xs>
+      <Grid container spacing={2} justify="center">
+        <Grid item>
           <div>
             Object
             <Fab size="small" color="secondary" aria-label="Add" className={classes.margin} onClick={addClass}>
@@ -120,27 +100,12 @@ const SearchCondition = (props) => {
                       // clearable="true"
                       value={[{ label: mapData.class }]}
                       onChange={(option) => {
-                        // console.log(`%c > onClassChange `, 'background: #555; color: tomato', value[0].class);
-                        changeClass(mapIndex, option.value, mapData.number);
-                        // initialClassInfo[mapIndex] = {class: value[0].class, number: mapData.number}
-                        // setClassInfo(initialClassInfo);
-                      }
-                      }
-                    />
+                        changeClass(mapIndex, { class: option.value, number: mapData.number });
+                      }} />
                   </Box>
                   <Box pl={5}>
                     <input type="number" value={mapData.number} onChange={(event) => {
-                      // console.log(event.target.value)
-                      // initialClassInfo[mapIndex] = event.target.value;
-                      // console.log(`%c > onNumberChange `, 'background: #555; color: tomato', event.target.value); 
-                      const tempArray = { ...initialClassInfo }
-                      tempArray[mapIndex] = { class: mapData.class, number: parseInt(event.target.value) }
-                      changeClass(mapIndex, mapData.class, parseInt(event.target.value));
-                      // console.log("Map index is %d", mapIndex)
-                      // console.log("initialClassInfo is")
-                      // console.log(tempArray);
-                      // console.log("Called setClassInfo")
-                      // setClassInfo(tempArray);
+                      changeClass(mapIndex, { class: mapData.class, number: parseInt(event.target.value) });
                     }} />
                   </Box>
                   <Box pl={5}>
@@ -162,7 +127,7 @@ const SearchCondition = (props) => {
             </div>
           </div>
         </Grid>
-        <Grid item xs>
+        <Grid item>
           Text
           <Fab size="small" color="secondary" aria-label="Add" className={classes.margin} onClick={addOcr}>
             <AddIcon />
@@ -171,9 +136,7 @@ const SearchCondition = (props) => {
             <Box display="flex" flexDirection="row" justifyContent="center" key={mapIndex} p={1}>
               <Box pl={5} width={200}>
                 <input type="text" value={mapData.text} onChange={(event) => {
-                  const tempArray = { ...initialOcrInfo }
-                  tempArray[mapIndex] = { text: event.target.value }
-                  changeOcr(mapIndex, event.target.value);
+                  changeOcr(mapIndex, { text: event.target.value });
                 }} />
               </Box>
               <Box pl={5}>
@@ -185,7 +148,7 @@ const SearchCondition = (props) => {
           ))}
         </Grid>
       </Grid>
-      <button onClick={() => props.onClickSearch(classInfo)}>Search</button>
+      <button onClick={() => props.onClickSearch(classInfo, ocrInfo)}>Search</button>
 
 
     </div>
