@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import SearchCondition from './SearchCondition'
 import SearchResult from './SearchResult';
 
-function SearchPage() {
+const SearchPage = () => {
+
+  const onClickSearch = (searchOption) => {
+    console.log("Clicked search")
+    console.log(searchOption)
+  }
   return (
     <div>
-      <SearchCondition />
+      <SearchCondition onClickSearch={onClickSearch}/>
       <SearchResult />
     </div>
   );

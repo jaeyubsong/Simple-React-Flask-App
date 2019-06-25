@@ -24,8 +24,8 @@ function App() {
         "Access-Control-Allow-Origin": "*"
       }
     });
-    
-  } 
+
+  }
 
 
 
@@ -47,34 +47,34 @@ function App() {
       </button>
       <br />
       <br />
-      <form action="http://localhost:5000/vbs/upload" method="POST" encType="multipart/form-data"> 
-        <input type="file" name="toUpload"/>
-        <input type="submit" value="Upload"/>     
+      <form action="http://localhost:5000/vbs/upload" method="POST" encType="multipart/form-data">
+        <input type="file" name="toUpload" />
+        <input type="submit" value="Upload" />
       </form>
-      
+
       <form action="http://localhost:5000/vbs/new" method='POST'>
         <label>Name and Description to Add:</label>
-        <input type="text"  name="name" />        
-        <input type="text"  name="description" />        
-        <input type="submit" value="Save" />        
+        <input type="text" name="name" />
+        <input type="text" name="description" />
+        <input type="submit" value="Save" />
       </form>
-      
+
       <form action="http://localhost:5000/vbs/delete" method='POST'>
         <label>Name to remove:</label>
-        <input type="text"  name="name" />
-        <input type="submit"  value="Delete" />
+        <input type="text" name="name" />
+        <input type="submit" value="Delete" />
       </form>
 
       <form action="http://localhost:5000/vbs/dssss" method='POST'>
         <label>Search:</label>
-        <input type="text"  name="name" />
-        <input type="text"  name="name" />
-        <input type="text"  name="name" />
-        <input type="submit"  value="Delete" />
+        <input type="text" name="name" />
+        <input type="text" name="name" />
+        <input type="text" name="name" />
+        <input type="submit" value="Delete" />
       </form>
       <SearchPage />
     </div>
-    
+
   );
 };
 
