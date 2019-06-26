@@ -11,3 +11,17 @@ export const fetchData = async () => {
   });
 
 }
+
+export const sendQuery = async (myData) => {
+   console.log("QueryData is called sending ");
+   console.log(myData)
+   const result = await axios({
+     method: 'post',
+     url: 'http://localhost:5000/vbs/query',
+     headers: {
+       "Access-Control-Allow-Origin": "*"
+     },
+     data: {myData}
+   });
+ 
+ }

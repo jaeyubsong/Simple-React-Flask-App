@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SearchCondition from './SearchCondition'
 import SearchResult from './SearchResult';
-import {fetchData} from 'api/api'
+import { fetchData, sendQuery } from 'api/api'
 
 const SearchPage = () => {
 
@@ -15,6 +15,7 @@ const SearchPage = () => {
     const flattened = [].concat(...options);
     console.log(flattened)
     // console.log(...options)
+    sendQuery(flattened);
     fetchData();
     setSearchComplete(true);
   }
