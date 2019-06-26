@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid'
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { classOptions, colorOptions } from "./dropdownOptions";
+import { objectOptions, colorOptions } from "./dropdownOptions";
 
 
 
@@ -101,18 +101,18 @@ const SearchCondition = (props) => {
                   <Box pl={5} width={150}>
                     {console.log(mapData)}
                     <Select
-                      options={classOptions}
+                      options={objectOptions}
                       // searchable="true"
                       // labelField="class"
                       // clearable="true"
-                      value={[{ label: mapData.class }]}
+                      value={[{ label: mapData.object }]}
                       onChange={(option) => {
                         changeObject(mapIndex, { object: option.value, number: mapData.number });
                       }} />
                   </Box>
                   <Box>
                     <input style={{width: "50px"}} type="number" value={mapData.number} onChange={(event) => {
-                      changeObject(mapIndex, { class: mapData.class, number: parseInt(event.target.value) });
+                      changeObject(mapIndex, { class: mapData.object, number: parseInt(event.target.value) });
                     }} />
                   </Box>
                   <Box>
@@ -157,14 +157,30 @@ const SearchCondition = (props) => {
         <Grid item>
           <div>
             Color
-            <Box width={150}>
-              <Select
-                options={colorOptions}
-                onChange={(option) => {
-                  changeColor(0, { color: option.value });
-                }}
-              />
-            </Box>
+            <Fab size="small" color="secondary" aria-label="Add" className={classes.margin} onClick={addColor}>
+              <AddIcon />
+            </Fab>
+            <div>
+              {colorInfo.map((mapData, mapIndex) => (
+                <Box display="flex" flexDirection="row" justifyContent="center" key={mapIndex} p={1}>
+                  <Box width={150}>
+                    <Select
+                      options={colorOptions}
+                      value={[ {label: mapData.color }]}
+                      onChange={(option) => {
+                        changeColor(0, { color: option.value });
+                      }}
+                    />
+                  </Box>
+                  <Box>
+                    <IconButton aria-label="Delete" onClick={() => removeColor(mapIndex)}>
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+                </Box>
+              ))}
+            </div>
+
 
           </div>
 

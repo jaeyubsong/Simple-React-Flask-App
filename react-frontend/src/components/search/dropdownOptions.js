@@ -1,4 +1,4 @@
-export const classOptions = [
+export const objectOptions = [
   {
     value: 'person',
     label: 'person'
