@@ -34,22 +34,22 @@ const SearchCondition = (props) => {
 
   const classes = useStyles();
 
-  const initialClassInfo = [{ class: "lion", number: 0 },
-  { class: "car", number: 5 },
-  { class: "ball", number: 2 }];
+  const initialObjectInfo = [{ type: "object", object: "lion", number: 0 },
+  { type: "object", object: "car", number: 5 },
+  { type: "object", object: "ball", number: 2 }];
 
-  const initialOcrInfo = [{ text: "flex" }, { text: "nike" }];
+  const initialOcrInfo = [{ type: "text", text: "flex" }, { type: "text", text: "nike" }];
 
-  const initialColorInfo = [{ color: "aqua"}];
+  const initialColorInfo = [{ type: "color", color: "aqua"}];
 
   const [count, setCount] = useState(0)
-  const [classInfo, setClassInfo] = useState(initialClassInfo)
+  const [objectInfo, setObjectInfo] = useState(initialObjectInfo)
   const [ocrInfo, setOcrInfo] = useState(initialOcrInfo)
   const [colorInfo, setColorInfo] = useState(initialColorInfo);
 
   useEffect(() => {
     console.log("Use effect called");
-    console.log(initialClassInfo);
+    console.log(initialObjectInfo);
     // setClassInfo(initialClassInfo);
   }, [])
 
@@ -70,15 +70,15 @@ const SearchCondition = (props) => {
     setInfoArray(tempArray);
   }
 
-  const addClass = addSearchOption(classInfo, setClassInfo, { class: "", number: 0 });
-  const removeClass = removeSearchOption(classInfo, setClassInfo);
-  const changeClass = changeSearchOption(classInfo, setClassInfo);
+  const addObject = addSearchOption(objectInfo, setObjectInfo, { type: "object", object: "", number: 0 });
+  const removeObject = removeSearchOption(objectInfo, setObjectInfo);
+  const changeObject = changeSearchOption(objectInfo, setObjectInfo);
 
-  const addOcr = addSearchOption(ocrInfo, setOcrInfo, { text: "" });
+  const addOcr = addSearchOption(ocrInfo, setOcrInfo, { type: "text", text: "" });
   const removeOcr = removeSearchOption(ocrInfo, setOcrInfo);
   const changeOcr = changeSearchOption(ocrInfo, setOcrInfo);
 
-  const addColor = addSearchOption(colorInfo, setColorInfo, { color: "" });
+  const addColor = addSearchOption(colorInfo, setColorInfo, { type: "color", color: "" });
   const removeColor = removeSearchOption(colorInfo, setColorInfo);
   const changeColor = changeSearchOption(colorInfo, setColorInfo);
 
@@ -90,13 +90,13 @@ const SearchCondition = (props) => {
         <Grid item>
           <div>
             Object
-            <Fab size="small" color="secondary" aria-label="Add" className={classes.margin} onClick={addClass}>
+            <Fab size="small" color="secondary" aria-label="Add" className={classes.margin} onClick={addObject}>
               <AddIcon />
             </Fab>
             <div>
               {console.log("Rendering")}
-              {console.log(classInfo)}
-              {classInfo.map((mapData, mapIndex) => (
+              {console.log(objectInfo)}
+              {objectInfo.map((mapData, mapIndex) => (
                 <Box display="flex" flexDirection="row" justifyContent="center" key={mapIndex} p={1}>
                   <Box pl={5} width={150}>
                     {console.log(mapData)}
@@ -107,27 +107,27 @@ const SearchCondition = (props) => {
                       // clearable="true"
                       value={[{ label: mapData.class }]}
                       onChange={(option) => {
-                        changeClass(mapIndex, { class: option.value, number: mapData.number });
+                        changeObject(mapIndex, { object: option.value, number: mapData.number });
                       }} />
                   </Box>
                   <Box>
                     <input style={{width: "50px"}} type="number" value={mapData.number} onChange={(event) => {
-                      changeClass(mapIndex, { class: mapData.class, number: parseInt(event.target.value) });
+                      changeObject(mapIndex, { class: mapData.class, number: parseInt(event.target.value) });
                     }} />
                   </Box>
                   <Box>
-                    <IconButton aria-label="Delete" onClick={() => removeClass(mapIndex)}>
+                    <IconButton aria-label="Delete" onClick={() => removeObject(mapIndex)}>
                       <DeleteIcon fontSize="small" />
                     </IconButton>
                   </Box>
 
                 </Box>
               ))}
-              <button onClick={() => console.log(initialClassInfo)}>
-                GetinitialClassInfo
+              <button onClick={() => console.log(initialObjectInfo)}>
+                GetinitialObjectInfo
               </button>
-              <button onClick={() => console.log(classInfo)}>
-                GetClassInfo
+              <button onClick={() => console.log(objectInfo)}>
+                GetObjectInfo
               </button>
 
               <div>sadas</div>
@@ -170,7 +170,7 @@ const SearchCondition = (props) => {
 
         </Grid>
       </Grid>
-      <button onClick={() => props.onClickSearch(classInfo, ocrInfo, colorInfo)}>Search</button>
+      <button onClick={() => props.onClickSearch(objectInfo, ocrInfo, colorInfo)}>Search</button>
 
 
     </div>

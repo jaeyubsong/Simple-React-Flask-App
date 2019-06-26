@@ -12,7 +12,9 @@ const SearchPage = () => {
     // console.log(classOption);
     // console.log(ocrOption);
     // console.log(colorOption);
-    console.log(options)
+    const flattened = [].concat(...options);
+    console.log(flattened)
+    // console.log(...options)
     fetchData();
     setSearchComplete(true);
   }
