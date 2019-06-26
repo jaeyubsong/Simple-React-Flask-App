@@ -17,7 +17,7 @@ RUN git clone https://github.com/sungjune-p/aster.git \
 && rm model-demo.zip
 
 RUN pip install --upgrade pip \
-&& pip install protobuf tqdm editdistance Pillow pymongo csv
+&& pip install protobuf tqdm editdistance Pillow pymongo
 
 RUN cd aster/c_ops \
 && ./build.sh
