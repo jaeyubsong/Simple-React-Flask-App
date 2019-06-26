@@ -7,10 +7,12 @@ const SearchPage = () => {
 
   const [searchComplete, setSearchComplete] = useState(false);
 
-  const onClickSearch = (classOption, ocrOption) => {
+  const onClickSearch = (...options) => {
     console.log("Clicked search");
-    console.log(classOption);
-    console.log(ocrOption);
+    // console.log(classOption);
+    // console.log(ocrOption);
+    // console.log(colorOption);
+    console.log(options)
     fetchData();
     setSearchComplete(true);
   }

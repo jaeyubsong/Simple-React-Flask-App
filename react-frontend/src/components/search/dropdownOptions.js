@@ -1,4 +1,4 @@
-export const options = [
+export const classOptions = [
   {
     value: 'person',
     label: 'person'
@@ -26,6 +26,64 @@ export const options = [
   {
     value: 'train',
     label: 'train'
+  }
+]
+let familiar_color = {'aqua': '#00ffff', 'black': '#000000', 'blue': '#0000ff', 'fuchsia': '#ff00ff',
+                 'green': '#008000', 'gray': '#808080', 'lime': '#00ff00', 'maroon': '#800000',
+                 'navy': '#000080', 'olive': '#808000', 'purple': '#800080', 'red': '#ff0000',
+                 'silver': '#c0c0c0', 'teal': '#008080', 'white': '#ffffff', 'yellow': '#ffff00',
+                 'orange': '#ffa500'}
+export const colorOptions = [
+  {
+    value: 'aqua', label: 'aqua', hex: '00ffff'
+  },
+  {
+    value: 'black', label: 'black', hex: '#000000'
+  },
+  {
+    value: 'blue', label: 'blue', hex: '#0000ff'
+  },
+  {
+    value: 'fuchsia', label: 'fuchsia', hex: '#ff00ff'
+  },
+  {
+    value: 'green', label: 'green', hex: '#008000'
+  },
+  {
+    value: 'gray', label: 'gray', hex: '#808080'
+  },
+  {
+    value: 'lime', label: 'lime', hex: '#00ff00'
+  },
+  {
+    value: 'maroon', label: 'maroon', hex: '#800000'
+  },
+  {
+    value: 'navy', label: 'navy', hex: '#000080'
+  },
+  {
+    value: 'olive', label: 'olive', hex: '#808000'
+  },
+  {
+    value: 'purple', label: 'purple', hex: '#800080'
+  },
+  {
+    value: 'red', label: 'red', hex: '#ff0000'
+  },
+  {
+    value: 'silver', label: 'silver', hex: '#c0c0c0'
+  },
+  {
+    value: 'teal', label: 'teal', hex: '#008080'
+  },
+  {
+    value: 'white', label: 'white', hex: '#ffffff'
+  },
+  {
+    value: 'yellow', label: 'yellow', hex: '#ffff00'
+  },
+  {
+    value: 'orange', label: 'orange', hex: '#ffa500'
   }
 ]
 

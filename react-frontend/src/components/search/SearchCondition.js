@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid'
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { options } from "./dropdownOptions";
+import { classOptions, colorOptions } from "./dropdownOptions";
 
 
 
@@ -40,9 +40,12 @@ const SearchCondition = (props) => {
 
   const initialOcrInfo = [{ text: "flex" }, { text: "nike" }];
 
+  const initialColorInfo = [{ color: "aqua"}];
+
   const [count, setCount] = useState(0)
   const [classInfo, setClassInfo] = useState(initialClassInfo)
   const [ocrInfo, setOcrInfo] = useState(initialOcrInfo)
+  const [colorInfo, setColorInfo] = useState(initialColorInfo);
 
   useEffect(() => {
     console.log("Use effect called");
@@ -75,6 +78,10 @@ const SearchCondition = (props) => {
   const removeOcr = removeSearchOption(ocrInfo, setOcrInfo);
   const changeOcr = changeSearchOption(ocrInfo, setOcrInfo);
 
+  const addColor = addSearchOption(colorInfo, setColorInfo, { color: "" });
+  const removeColor = removeSearchOption(colorInfo, setColorInfo);
+  const changeColor = changeSearchOption(colorInfo, setColorInfo);
+
 
 
   return (
@@ -91,10 +98,10 @@ const SearchCondition = (props) => {
               {console.log(classInfo)}
               {classInfo.map((mapData, mapIndex) => (
                 <Box display="flex" flexDirection="row" justifyContent="center" key={mapIndex} p={1}>
-                  <Box pl={5} width={200}>
+                  <Box pl={5} width={150}>
                     {console.log(mapData)}
                     <Select
-                      options={options}
+                      options={classOptions}
                       // searchable="true"
                       // labelField="class"
                       // clearable="true"
@@ -103,12 +110,12 @@ const SearchCondition = (props) => {
                         changeClass(mapIndex, { class: option.value, number: mapData.number });
                       }} />
                   </Box>
-                  <Box pl={5}>
-                    <input type="number" value={mapData.number} onChange={(event) => {
+                  <Box>
+                    <input style={{width: "50px"}} type="number" value={mapData.number} onChange={(event) => {
                       changeClass(mapIndex, { class: mapData.class, number: parseInt(event.target.value) });
                     }} />
                   </Box>
-                  <Box pl={5}>
+                  <Box>
                     <IconButton aria-label="Delete" onClick={() => removeClass(mapIndex)}>
                       <DeleteIcon fontSize="small" />
                     </IconButton>
@@ -134,12 +141,12 @@ const SearchCondition = (props) => {
           </Fab>
           {ocrInfo.map((mapData, mapIndex) => (
             <Box display="flex" flexDirection="row" justifyContent="center" key={mapIndex} p={1}>
-              <Box pl={5} width={200}>
-                <input type="text" value={mapData.text} onChange={(event) => {
+              <Box>
+                <input style={{width: "150px"}} type="text" value={mapData.text} onChange={(event) => {
                   changeOcr(mapIndex, { text: event.target.value });
                 }} />
               </Box>
-              <Box pl={5}>
+              <Box>
                 <IconButton aria-label="Delete" onClick={() => removeOcr(mapIndex)}>
                   <DeleteIcon fontSize="small" />
                 </IconButton>
@@ -147,8 +154,23 @@ const SearchCondition = (props) => {
             </Box>
           ))}
         </Grid>
+        <Grid item>
+          <div>
+            Color
+            <Box width={150}>
+              <Select
+                options={colorOptions}
+                onChange={(option) => {
+                  changeColor(0, { color: option.value });
+                }}
+              />
+            </Box>
+
+          </div>
+
+        </Grid>
       </Grid>
-      <button onClick={() => props.onClickSearch(classInfo, ocrInfo)}>Search</button>
+      <button onClick={() => props.onClickSearch(classInfo, ocrInfo, colorInfo)}>Search</button>
 
 
     </div>
