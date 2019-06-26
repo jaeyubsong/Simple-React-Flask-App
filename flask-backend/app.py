@@ -15,14 +15,16 @@ api = Api(app=app)
 ns = api.namespace('vbs', description='design vbs web')
 
 client = MongoClient('mongo', 27017)
-db = client.tododb
+db = client.testdb
+col = db.video
 
+data_dir = '../ir.nist.gov/tv2019/V3C1/V3C1.webm.videos.shots/'
 
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 @ns.route("/")
 class indexClass(Resource):
   def post(self):
-    _items = db.tododb.find()
+    _items = col.find()
     items = [item for item in _items]
     #return render_template('index.html', items=items)
     return current_app.logger.info(items)
@@ -32,7 +34,7 @@ class indexClass(Resource):
 #@ns.doc(params={'name': 'name', 'description': 'description'})
 class newClass(Resource):
   def post(self):
-    item_doc = { 'name': '', 'description': '' }
+    item_doc = { '_id': '', 'Text': '' }
     #name = request.form.to_dict("name")
     #current_app.logger.info(name)
     #description = request.form.to_dict("description")
@@ -41,7 +43,7 @@ class newClass(Resource):
     item_doc = request.form.to_dict()
     current_app.logger.info(item_doc)
     print("Add Object : ", item_doc)
-    db.tododb.insert_one(item_doc)
+    col.insert_one(item_doc)
     #return redirect(url_for('index'))
     return "Add Successfully" 
 
@@ -49,11 +51,11 @@ class newClass(Resource):
 @ns.route("/delete")
 class deleteClass(Resource):
   def post(self):
-    name_to_delete = { 'name': '' }
+    name_to_delete = { '_id': '' }
     name_to_delete = request.form.to_dict()
     print("Delete Object : ", name_to_delete)
     current_app.logger.info(name_to_delete)
-    db.tododb.remove(name_to_delete)
+    col.remove(name_to_delete)
 
     #return redirect('/')
     return "Delete Successfully" 
@@ -63,7 +65,7 @@ class deleteClass(Resource):
 class getDataClass(Resource):
   def post(self):
     current_app.logger.info("getData called with data")
-    _items = db.tododb.find({},{ "_id": 0, "name": 1, "description": 1 })
+    _items = col.find({},{ "_id": 0, "Text": 1 })
     items = [item for item in _items]
     returnList = {"hits": []}
     returnList["hits"] = items
@@ -73,7 +75,7 @@ class getDataClass(Resource):
     current_app.logger.info(returnList)
     response = jsonify(returnList)
     #response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return 
 
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 @ns.route("/upload")
@@ -83,13 +85,35 @@ class fileUpload(Resource):
     current_app.logger.info(toUpload.filename)
     toUpload.save(secure_filename(toUpload.filename))
     
-
     #read_data = data.read()
     #stored = fs.put(read_data, filename=str(toUpload.filename))
     #return {"status": "New image added", "name": list_of_names[id_doc[_id]]}
     #return 'upload successfully'
     #return send_file(toUpload.filename)
     return toUpload.filename
+   
+@cross_origin(origin='localhost', headers=['Content-Type', 'Authorization']) 
+@ns.route("/query")
+class fileQuery(Resource):
+  def post(self):
+    text_to_query = request.form['text_to_query']
+    x = col.find({'Text': text_to_query})
+    doc_list = []
+    
+    for doc in x:
+      current_app.logger.info("Full documents below")
+      current_app.logger.info(doc)
+      video_num = doc['_id'].split('_')[0]
+      frame_num = doc['_id'].split('_')[1]
+      doc_list.append(data_dir + video_num)
+
+#    for dx in doc_list:
+#      current_app.logger.info("Query content below")
+#      current_app.logger.info(text_to_query)
+#      current_app.logger.info("that is contained in below video(s)")
+#      current_app.logger.info(dx)
+
+    return doc_list
 
 
 

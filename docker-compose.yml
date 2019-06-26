@@ -51,4 +51,3 @@ services:
     container_name: aster_container
     depends_on:
       - mongo
-    

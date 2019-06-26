@@ -121,3 +121,5 @@ RUN pip uninstall -y tensorflow \
                           cython
 
 WORKDIR /pixel_link_workdir/pixel_link
+
+#ENTRYPOINT /pixel_link_workdir/pixel_link/scripts/test.sh 0 /pixel_link_workdir/conv3_3/model.ckpt-38055 /test_images/
