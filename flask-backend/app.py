@@ -118,7 +118,9 @@ class fileQuery(Resource):
     doc_list = list(set(doc_list))
     for found in doc_list:
         current_app.logger.info(found)
-    return 
+    
+    returnList = jsonify(doc_list)
+    return returnList
 
 
 if __name__ == "__main__":
