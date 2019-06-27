@@ -36,17 +36,18 @@ function SearchResult (props) {
   const sampleData = getImage()
   return (
     <div className='searchResult'>
-      {props.searchComplete == true && 
+      {props.searchResult.searchComplete == true && 
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Grid container justify='center' spacing={2}>
-            {sampleData.data.map((value, index) => (
+            {props.searchResult.data.map((value, index) => (
               <Grid key={index} item>
                 <ResultBox
                   imageSrc={sampleImage}
                   width={100}
-                  onClick={() => console.log(value.text)}
+                  onClick={() => console.log(value)}
                 />
+                {value}
               </Grid>
             ))}
           </Grid>

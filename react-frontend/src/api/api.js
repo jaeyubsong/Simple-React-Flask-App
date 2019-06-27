@@ -23,6 +23,7 @@ export const sendQuery = async (myData) => {
      },
      data: {myData}
    });
+   console.log("Got result back")
    console.log(result);
- 
+   return result;
  }

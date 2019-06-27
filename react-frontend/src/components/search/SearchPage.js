@@ -5,9 +5,9 @@ import { fetchData, sendQuery } from 'api/api'
 
 const SearchPage = () => {
 
-  const [searchComplete, setSearchComplete] = useState(false);
+  const [searchResult, setSearchResult] = useState({searchComplete: false, data: []})
 
-  const onClickSearch = (...options) => {
+  const onClickSearch = async (...options) => {
     console.log("Clicked search");
     // console.log(classOption);
     // console.log(ocrOption);
@@ -15,14 +15,20 @@ const SearchPage = () => {
     const flattened = [].concat(...options);
     console.log(flattened)
     // console.log(...options)
-    sendQuery(flattened);
-    fetchData();
-    setSearchComplete(true);
+    const result = await sendQuery(flattened);
+    console.log("Finished sendQuery");
+    console.log(result.data);
+    const newSearchResult = {...searchResult}
+    Object.assign(newSearchResult, {searchComplete: true, data: result.data});
+    console.log(newSearchResult);
+    setSearchResult(newSearchResult);
   }
+
   return (
     <div>
+      {console.log("Reload this")}
       <SearchCondition onClickSearch={onClickSearch}/>
-      <SearchResult searchComplete={searchComplete}/>
+      <SearchResult searchResult={searchResult}/>
     </div>
   );
 };

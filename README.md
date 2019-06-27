@@ -73,6 +73,16 @@ $ docker images
 $ docker rmi "image_name or id"
 ```
 
+- Export mongodb data
+```
+$ mongodump
+```
+
+- Import mongodb data
+```
+$ mongorestore --dir /dump
+```
+
 
 ### Permission errors for 'mondoData' folder
 

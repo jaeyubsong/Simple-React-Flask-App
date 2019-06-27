@@ -34,13 +34,11 @@ const SearchCondition = (props) => {
 
   const classes = useStyles();
 
-  const initialObjectInfo = [{ type: "object", object: "lion", number: 0 },
-  { type: "object", object: "car", number: 5 },
-  { type: "object", object: "ball", number: 2 }];
+  const initialObjectInfo = [];
 
-  const initialOcrInfo = [{ type: "text", text: "flex" }, { type: "text", text: "nike" }];
+  const initialOcrInfo = [];
 
-  const initialColorInfo = [{ type: "color", color: "aqua"}];
+  const initialColorInfo = [];
 
   const [count, setCount] = useState(0)
   const [objectInfo, setObjectInfo] = useState(initialObjectInfo)
@@ -129,8 +127,6 @@ const SearchCondition = (props) => {
               <button onClick={() => console.log(objectInfo)}>
                 GetObjectInfo
               </button>
-
-              <div>sadas</div>
             </div>
           </div>
         </Grid>
