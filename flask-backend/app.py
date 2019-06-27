@@ -69,10 +69,10 @@ class getDataClass(Resource):
     items = [item for item in _items]
     returnList = {"hits": []}
     returnList["hits"] = items
-    current_app.logger.info(items)
-    current_app.logger.info(json.dumps(items))
-    current_app.logger.info(jsonify(items))
-    current_app.logger.info(returnList)
+#    current_app.logger.info(items)
+#    current_app.logger.info(json.dumps(items))
+#    current_app.logger.info(jsonify(items))
+#    current_app.logger.info(returnList)
     response = jsonify(returnList)
     #response.headers.add('Access-Control-Allow-Origin', '*')
     return 
@@ -96,25 +96,29 @@ class fileUpload(Resource):
 @ns.route("/query")
 class fileQuery(Resource):
   def post(self):
-    text_to_query = request.form['text_to_query']
-    x = col.find({'Text': text_to_query})
+    data = request.json
+    data_list = data['myData']
+    query_text_list = []
+    for item in data_list:
+        if item['type'] != 'text':
+            continue
+        else:
+            query_text_list.append(item['text'])
+
     doc_list = []
-    
-    for doc in x:
-      current_app.logger.info("Full documents below")
-      current_app.logger.info(doc)
-      video_num = doc['_id'].split('_')[0]
-      frame_num = doc['_id'].split('_')[1]
-      doc_list.append(data_dir + video_num)
+    for query_text in query_text_list:
+        current_app.logger.info(query_text)
+        x = col.find({'Text': query_text})
+        for doc in x:
+            current_app.logger.info(doc)
+#            video_num = doc['_id'].split('_')[0]
+#            frame_seg = doc['_id'].split('_')[1]
+            doc_list.append(doc['_id'])
 
-#    for dx in doc_list:
-#      current_app.logger.info("Query content below")
-#      current_app.logger.info(text_to_query)
-#      current_app.logger.info("that is contained in below video(s)")
-#      current_app.logger.info(dx)
-
-    return doc_list
-
+    doc_list = list(set(doc_list))
+    for found in doc_list:
+        current_app.logger.info(found)
+    return 
 
 
 if __name__ == "__main__":
