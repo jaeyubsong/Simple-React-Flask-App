@@ -74,6 +74,7 @@ function App() {
         <input type="submit" value="Delete" />
       </form>
       <SearchPage />
+      asdsa
     </div>
 
   );

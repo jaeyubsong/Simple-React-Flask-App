@@ -96,9 +96,12 @@ class fileUpload(Resource):
 @ns.route("/query")
 class fileQuery(Resource):
   def post(self):
+    current_app.logger.info("Called query")
     data = request.json
     data_list = data['myData']
     query_text_list = []
+    current_app.logger.info(request.json)
+
     for item in data_list:
         if item['type'] != 'text':
             continue

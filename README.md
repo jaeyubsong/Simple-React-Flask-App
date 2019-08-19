@@ -75,12 +75,12 @@ $ docker rmi "image_name or id"
 
 - Export mongodb data
 ```
-$ mongodump
+$ mongodump --db database_name --collection collection_name
 ```
 
 - Import mongodb data
 ```
-$ mongorestore --dir /dump
+$ mongorestore --db database_name path_to_bson_file
 ```
 
 
