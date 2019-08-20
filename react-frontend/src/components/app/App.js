@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 //import logo from '../../assets/images/logo.svg';
 import './App.css';
 import axios from 'axios'
+import Popup from "reactjs-popup";
 
 import SearchPage from '../search/SearchPage'
 
@@ -75,6 +76,9 @@ function App() {
       </form>
       <SearchPage />
       asdsa
+      <Popup trigger={<button> Trigger</button>} position="right center">
+        <div>Popup content here !!</div>
+      </Popup>
     </div>
 
   );

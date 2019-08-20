@@ -46,8 +46,9 @@ function SearchResult (props) {
                   imageSrc={sampleImage}
                   width={100}
                   onClick={() => console.log(value)}
+                  frameInfo={value}
                 />
-                {value}
+                {/* {value} */}
               </Grid>
             ))}
           </Grid>

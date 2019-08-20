@@ -8,6 +8,7 @@ services:
     volumes:
       - './react-frontend/:/usr/src/app'
       - '/usr/src/app/node_modules'
+      - './dataset:/usr/src/app/public/dataset'
     ports:
       - '3000:3000'
     environment:
