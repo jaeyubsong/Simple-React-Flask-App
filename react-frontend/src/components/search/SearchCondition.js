@@ -40,10 +40,13 @@ const SearchCondition = (props) => {
 
   const initialColorInfo = [];
 
+  const initialSentenceInfo = [];
+
   const [count, setCount] = useState(0)
   const [objectInfo, setObjectInfo] = useState(initialObjectInfo)
   const [ocrInfo, setOcrInfo] = useState(initialOcrInfo)
-  const [colorInfo, setColorInfo] = useState(initialColorInfo);
+  const [colorInfo, setColorInfo] = useState(initialColorInfo)
+  const [sentenceInfo, setSentenceInfo] = useState(initialSentenceInfo)
 
   useEffect(() => {
     console.log("Use effect called");
@@ -80,7 +83,9 @@ const SearchCondition = (props) => {
   const removeColor = removeSearchOption(colorInfo, setColorInfo);
   const changeColor = changeSearchOption(colorInfo, setColorInfo);
 
-
+  const addSentence = addSearchOption(sentenceInfo, setSentenceInfo, { type: "sentence", sentence: "" });
+  const removeSentence = removeSearchOption(sentenceInfo, setSentenceInfo);
+  const changeSentence = changeSearchOption(sentenceInfo, setSentenceInfo);
 
   return (
     <div>
@@ -181,6 +186,28 @@ const SearchCondition = (props) => {
           </div>
 
         </Grid>
+
+        <Grid item>
+          Sentence
+          <Fab size="small" color="secondary" aria-label="Add" className={classes.margin} onClick={addSentence}>
+            <AddIcon />
+          </Fab>
+          {sentenceInfo.map((mapData, mapIndex) => (
+            <Box display="flex" flexDirection="row" justifyContent="center" key={mapIndex} p={1}>
+              <Box>
+                <input style={{width: "150px"}} type="text" value={mapData.sentence} onChange={(event) => {
+                  changeSentence(mapIndex, { sentence: event.target.value });
+                }} />
+              </Box>
+              <Box>
+                <IconButton aria-label="Delete" onClick={() => removeSentence(mapIndex)}>
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </Box>
+            </Box>
+          ))}
+        </Grid>
+
       </Grid>
       <button onClick={() => props.onClickSearch(objectInfo, ocrInfo, colorInfo)}>Search</button>
 

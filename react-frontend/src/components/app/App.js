@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 //import logo from '../../assets/images/logo.svg';
 import './App.css';
 import axios from 'axios'
-import Popup from "reactjs-popup";
 
 import SearchPage from '../search/SearchPage'
 
@@ -54,31 +53,14 @@ function App() {
         <input type="submit" value="Upload" />
       </form>
 
-      <form action="http://localhost:5000/vbs/new" method='POST'>
-        <label>Name and Description to Add:</label>
-        <input type="text" name="name" />
-        <input type="text" name="description" />
-        <input type="submit" value="Save" />
-      </form>
 
-      <form action="http://localhost:5000/vbs/delete" method='POST'>
-        <label>Name to remove:</label>
+      {/* <form action="http://localhost:5000/vbs/dssss" method='POST'>
+        <label>Sentence:</label>
         <input type="text" name="name" />
-        <input type="submit" value="Delete" />
-      </form>
-
-      <form action="http://localhost:5000/vbs/dssss" method='POST'>
-        <label>Search:</label>
-        <input type="text" name="name" />
-        <input type="text" name="name" />
-        <input type="text" name="name" />
-        <input type="submit" value="Delete" />
-      </form>
+        <input type="submit" value="Search" />
+      </form> */}
       <SearchPage />
       asdsa
-      <Popup trigger={<button> Trigger</button>} position="right center">
-        <div>Popup content here !!</div>
-      </Popup>
     </div>
 
   );

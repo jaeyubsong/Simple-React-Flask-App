@@ -38,7 +38,7 @@ function SearchResult (props) {
     <div className='searchResult'>
       {props.searchResult.searchComplete == true && 
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid item>
           <Grid container justify='center' spacing={2}>
             {props.searchResult.data.map((value, index) => (
               <Grid key={index} item>
