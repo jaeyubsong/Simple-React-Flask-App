@@ -15,14 +15,24 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function ResultBox({ imageSrc, width, height, onClick, frameInfo }) {
+function getVideoUrl (video) {
+  let myVideo = video.toString()
+  while (myVideo.length < 5) {
+    myVideo = '0' + myVideo
+  }
+  let url = process.env.PUBLIC_URL + '/dataset/video_data/' + myVideo + '.mp4'
+  // console.log(url)
+  return url
+}
+
+function ResultBox({ imageSrc, width, height, onClick, frameInfo, videoNumber }) {
   const classes = useStyles()
   return (
     <div>
       {/* <div> */}
         <Popup trigger={<img src={imageSrc} style={{ width: width }} onClick={onClick} />} position="left center">
           <div>
-          <ReactPlayer url={process.env.PUBLIC_URL + '/dataset/video_data/00001.mp4'} controls={true} />
+            <ReactPlayer url={getVideoUrl(videoNumber)} controls={true} />
           {frameInfo}
           </div>
         </Popup>

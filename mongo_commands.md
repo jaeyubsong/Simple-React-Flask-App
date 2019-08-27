@@ -53,6 +53,7 @@ db.allFrames_id.explain("executionStats").aggregate([
         $project:{
             _id: 1,
             video: 1,
+            keyFrame: 1,
             startFrame: 1,
             endFrame: 1,
             startSecond: 1,

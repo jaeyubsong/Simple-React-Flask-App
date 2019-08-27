@@ -16,7 +16,7 @@ ns = api.namespace('vbs', description='design vbs web')
 
 client = MongoClient('mongo', 27017)
 db = client.testdb
-col = db.video
+col = db.allFrames_combined
 
 data_dir = '../ir.nist.gov/tv2019/V3C1/V3C1.webm.videos.shots/'
 
@@ -102,25 +102,37 @@ class fileQuery(Resource):
     query_text_list = []
     current_app.logger.info(request.json)
 
+    # For now, everything is in $OR
+    current_app.logger.info('Finding')
+    query = []
     for item in data_list:
-        if item['type'] != 'text':
-            continue
-        else:
-            query_text_list.append(item['text'])
+      if item['type'] == 'object':
+        query.append({'object': {
+          '$elemMatch': {
+            'label': item['object']
+          }
+        }})
+      elif item['type'] == 'text':
+        query.append({'text': item['text']})
+      elif item['type'] == 'color':
+        query.append({'color': item['color']})
 
+    current_app.logger.info('Before OR and query is:')
+    current_app.logger.info(query)
+    x = col.find({'$or': query})
+    current_app.logger.info('Finished finding')
+    # current_app.logger.info(doc_list)
     doc_list = []
-    for query_text in query_text_list:
-        current_app.logger.info(query_text)
-        x = col.find({'Text': query_text})
-        for doc in x:
-            current_app.logger.info(doc)
+    for doc in x:
+        # current_app.logger.info(doc)
 #            video_num = doc['_id'].split('_')[0]
 #            frame_seg = doc['_id'].split('_')[1]
-            doc_list.append(doc['_id'])
-
-    doc_list = list(set(doc_list))
-    for found in doc_list:
-        current_app.logger.info(found)
+        doc_list.append(doc)
+    current_app.logger.info(doc_list)
+    # doc_list = list(set(doc_list))
+    current_app.logger.info("Ready to send")
+    # for found in doc_list:
+    #     current_app.logger.info(found)
     
     returnList = jsonify(doc_list)
     return returnList

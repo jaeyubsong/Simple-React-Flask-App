@@ -30,6 +30,17 @@ function getImage () {
   return sampleData
 }
 
+function getImageUrl (video, frame) {
+  let myVideo = video.toString()
+  let myFrame = frame.toString()
+  while (myVideo.length < 5) {
+    myVideo = '0' + myVideo
+  }
+  let url = process.env.PUBLIC_URL + '/dataset/keyframes/' + myVideo + '/shot' + myVideo + '_' + myFrame + '_RKF.png'
+  // console.log(url)
+  return url
+}
+
 function SearchResult (props) {
   const [spacing] = useState(2)
 
@@ -43,10 +54,11 @@ function SearchResult (props) {
             {props.searchResult.data.map((value, index) => (
               <Grid key={index} item>
                 <ResultBox
-                  imageSrc={sampleImage}
+                  imageSrc={getImageUrl(value['video'], value['keyFrame'])}
                   width={100}
                   onClick={() => console.log(value)}
-                  frameInfo={value}
+                  frameInfo={value['startSecond']}
+                  videoNumber={value['video']}
                 />
                 {/* {value} */}
               </Grid>

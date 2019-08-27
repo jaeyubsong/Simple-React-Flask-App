@@ -26,7 +26,343 @@ export const objectOptions = [
   {
     value: 'train',
     label: 'train'
-  }
+  },
+  {
+    value: 'truck',
+    label: 'truck'
+  },
+  {
+    value: 'boat',
+    label: 'boat'
+  },
+  {
+    value: 'traffic light',
+    label: 'traffic light'
+  },
+  {
+    value: 'fire hydrant',
+    label: 'fire hydrant'
+  },
+  {
+    value: 'street sign',
+    label: 'street sign'
+  },
+  {
+    value: 'stop sign',
+    label: 'stop sign'
+  },
+  {
+    value: 'parking meter',
+    label: 'parking meter'
+  },
+  {
+    value: 'bench',
+    label: 'bench'
+  },
+  {
+    value: 'bird',
+    label: 'bird'
+  },
+  {
+    value: 'cat',
+    label: 'cat'
+  },
+  {
+    value: 'dog',
+    label: 'dog'
+  },
+  {
+    value: 'horse',
+    label: 'horse'
+  },
+  {
+    value: 'sheep',
+    label: 'sheep'
+  },
+  {
+    value: 'cow',
+    label: 'cow'
+  },
+  {
+    value: 'elephant',
+    label: 'elephant'
+  },
+  {
+    value: 'bear',
+    label: 'bear'
+  },
+  {
+    value: 'zebra',
+    label: 'zebra'
+  },
+  {
+    value: 'giraffe',
+    label: 'giraffe'
+  },
+  {
+    value: 'hat',
+    label: 'hat'
+  },
+  {
+    value: 'backpack',
+    label: 'backpack'
+  },
+  {
+    value: 'umbrella',
+    label: 'umbrella'
+  },
+  {
+    value: 'shoe',
+    label: 'shoe'
+  },
+  {
+    value: 'eye glasses',
+    label: 'eye glasses'
+  },
+  {
+    value: 'handbag',
+    label: 'handbag'
+  },
+  {
+    value: 'tie',
+    label: 'tie'
+  },
+  {
+    value: 'suitcase',
+    label: 'suitcase'
+  },
+  {
+    value: 'frisbee',
+    label: 'frisbee'
+  },
+  {
+    value: 'skis',
+    label: 'skis'
+  },
+  {
+    value: 'snowboard',
+    label: 'snowboard'
+  },
+  {
+    value: 'sports ball',
+    label: 'sports ball'
+  },
+  {
+    value: 'kite',
+    label: 'kite'
+  },
+  {
+    value: 'baseball bat',
+    label: 'baseball bat'
+  },
+  {
+    value: 'baseball glove',
+    label: 'baseball glove'
+  },
+  {
+    value: 'skateboard',
+    label: 'skateboard'
+  },
+  {
+    value: 'surfboard',
+    label: 'surfboard'
+  },
+  {
+    value: 'tennis racket',
+    label: 'tennis racket'
+  },
+  {
+    value: 'bottle',
+    label: 'bottle'
+  },
+  {
+    value: 'plate',
+    label: 'plate'
+  },
+  {
+    value: 'wine glass',
+    label: 'wine glass'
+  },
+  {
+    value: 'cup',
+    label: 'cup'
+  },
+  {
+    value: 'fork',
+    label: 'fork'
+  },
+  {
+    value: 'knife',
+    label: 'knife'
+  },
+  {
+    value: 'spoon',
+    label: 'spoon'
+  },
+  {
+    value: 'bowl',
+    label: 'bowl'
+  },
+  {
+    value: 'banana',
+    label: 'banana'
+  },
+  {
+    value: 'apple',
+    label: 'apple'
+  },
+  {
+    value: 'sandwich',
+    label: 'sandwich'
+  },
+  {
+    value: 'orange',
+    label: 'orange'
+  },
+  {
+    value: 'broccoli',
+    label: 'broccoli'
+  },
+  {
+    value: 'carrot',
+    label: 'carrot'
+  },
+  {
+    value: 'hot dog',
+    label: 'hot dog'
+  },
+  {
+    value: 'pizza',
+    label: 'pizza'
+  },
+  {
+    value: 'donut',
+    label: 'donut'
+  },
+  {
+    value: 'cake',
+    label: 'cake'
+  },
+  {
+    value: 'chair',
+    label: 'chair'
+  },
+  {
+    value: 'couch',
+    label: 'couch'
+  },
+  {
+    value: 'potted plant',
+    label: 'potted plant'
+  },
+  {
+    value: 'bed',
+    label: 'bed'
+  },
+  {
+    value: 'mirror',
+    label: 'mirror'
+  },
+  {
+    value: 'dining table',
+    label: 'dining table'
+  },
+  {
+    value: 'window',
+    label: 'window'
+  },
+  {
+    value: 'desk',
+    label: 'desk'
+  },
+  {
+    value: 'toilet',
+    label: 'toilet'
+  },
+  {
+    value: 'door',
+    label: 'door'
+  },
+  {
+    value: 'tv',
+    label: 'tv'
+  },
+  {
+    value: 'laptop',
+    label: 'laptop'
+  },
+  {
+    value: 'mouse',
+    label: 'mouse'
+  },
+  {
+    value: 'remote',
+    label: 'remote'
+  },
+  {
+    value: 'keyboard',
+    label: 'keyboard'
+  },
+  {
+    value: 'cell phone',
+    label: 'cell phone'
+  },
+  {
+    value: 'microwave',
+    label: 'microwave'
+  },
+  {
+    value: 'oven',
+    label: 'oven'
+  },
+  {
+    value: 'toaster',
+    label: 'toaster'
+  },
+  {
+    value: 'sink',
+    label: 'sink'
+  },
+  {
+    value: 'refrigerator',
+    label: 'refrigerator'
+  },
+  {
+    value: 'blender',
+    label: 'blender'
+  },
+  {
+    value: 'book',
+    label: 'book'
+  },
+  {
+    value: 'clock',
+    label: 'clock'
+  },
+  {
+    value: 'vase',
+    label: 'vase'
+  },
+  {
+    value: 'scissors',
+    label: 'scissors'
+  },
+  {
+    value: 'teddy bear',
+    label: 'teddy bear'
+  },
+  {
+    value: 'hair drier',
+    label: 'hair drier'
+  },
+  {
+    value: 'toothbrush',
+    label: 'toothbrush'
+  },
+  {
+    value: 'hair brush',
+    label: 'hair brush'
+  },
 ]
 let familiar_color = {'aqua': '#00ffff', 'black': '#000000', 'blue': '#0000ff', 'fuchsia': '#ff00ff',
                  'green': '#008000', 'gray': '#808080', 'lime': '#00ff00', 'maroon': '#800000',
