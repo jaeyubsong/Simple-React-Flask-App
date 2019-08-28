@@ -1,4 +1,5 @@
 import os
+import functools
 from flask import Flask, flash, session, redirect, url_for, request, render_template, current_app, jsonify, send_file
 from pymongo import MongoClient
 from flask_cors import CORS, cross_origin
@@ -19,6 +20,12 @@ db = client.testdb
 col = db.allFrames_combined
 
 data_dir = '../ir.nist.gov/tv2019/V3C1/V3C1.webm.videos.shots/'
+
+def priority_cmp(a, b):
+  if a['checked'] == True:
+    return-1
+  else:
+    return 1
 
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 @ns.route("/")
@@ -105,32 +112,81 @@ class fileQuery(Resource):
     # For now, everything is in $OR
     current_app.logger.info('Finding')
     query = []
+    high_priority = []
+    low_priority = []
+    cur_cond = {}
     for item in data_list:
       if item['type'] == 'object':
-        query.append({'object': {
+        cur_cond = {'object': {
           '$elemMatch': {
             'label': item['object']
           }
-        }})
+        }}
       elif item['type'] == 'text':
-        query.append({'text': item['text']})
+        cur_cond = {'text': item['text']}
       elif item['type'] == 'color':
-        query.append({'color': item['color']})
+        cur_cond = {'color': item['color']}
+
+      query.append(cur_cond)
+      if item['checked'] == True:
+        high_priority.append(cur_cond)
+      elif item['checked'] == False:
+        low_priority.append(cur_cond)
+      
 
     current_app.logger.info('Before OR and query is:')
     current_app.logger.info(query)
-    x = col.find({'$or': query})
+    # x = col.find({'$or': query})
+    x = col.aggregate([
+      {
+        '$match': { 
+          '$and': query
+        }
+      },
+      # {
+      #   '$addFields': {
+      #     "sortField": {
+      #       "$cond": {
+      #         "if": {
+      #           "$or": high_priority
+      #         }, "then": 1,
+      #         "else": 2
+      #       }
+      #     }
+      #   }
+      # },
+      # {"$sort": {"sortField": 1}},
+      {"$limit": 1000}
+    ])
+
+
     current_app.logger.info('Finished finding')
+
     # current_app.logger.info(doc_list)
     doc_list = []
     for doc in x:
-        # current_app.logger.info(doc)
-#            video_num = doc['_id'].split('_')[0]
-#            frame_seg = doc['_id'].split('_')[1]
         doc_list.append(doc)
+    
+    # y = col.aggregate([
+    #   {
+    #     '$match': { 
+    #       '$or': low_priority
+    #     }
+    #   },
+    #   {"$limit": 1000}
+    # ])
+    # for doc in y:
+    #   if len(doc_list) > 1000:
+    #     break
+    #   doc_list.append(doc)
+    # doc_list = sorted(doc_list, key=functools.cmp_to_key(priority_cmp))
+    # doc_list = doc_list[:1000]
     current_app.logger.info(doc_list)
     # doc_list = list(set(doc_list))
-    current_app.logger.info("Ready to send")
+    current_app.logger.info('Inside high_priority')
+    current_app.logger.info(high_priority)
+    current_app.logger.info('Inside low_priority')
+    current_app.logger.info(low_priority)
     # for found in doc_list:
     #     current_app.logger.info(found)
     

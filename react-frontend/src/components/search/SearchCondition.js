@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid'
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Checkbox from '@material-ui/core/Checkbox'
 import { objectOptions, colorOptions } from "./dropdownOptions";
 
 
@@ -71,19 +72,19 @@ const SearchCondition = (props) => {
     setInfoArray(tempArray);
   }
 
-  const addObject = addSearchOption(objectInfo, setObjectInfo, { type: "object", object: "", number: 0 });
+  const addObject = addSearchOption(objectInfo, setObjectInfo, { type: "object", object: "", number: 0, checked: false });
   const removeObject = removeSearchOption(objectInfo, setObjectInfo);
   const changeObject = changeSearchOption(objectInfo, setObjectInfo);
 
-  const addOcr = addSearchOption(ocrInfo, setOcrInfo, { type: "text", text: "" });
+  const addOcr = addSearchOption(ocrInfo, setOcrInfo, { type: "text", text: "" , checked: false});
   const removeOcr = removeSearchOption(ocrInfo, setOcrInfo);
   const changeOcr = changeSearchOption(ocrInfo, setOcrInfo);
 
-  const addColor = addSearchOption(colorInfo, setColorInfo, { type: "color", color: "" });
+  const addColor = addSearchOption(colorInfo, setColorInfo, { type: "color", color: "", checked: false });
   const removeColor = removeSearchOption(colorInfo, setColorInfo);
   const changeColor = changeSearchOption(colorInfo, setColorInfo);
 
-  const addSentence = addSearchOption(sentenceInfo, setSentenceInfo, { type: "sentence", sentence: "" });
+  const addSentence = addSearchOption(sentenceInfo, setSentenceInfo, { type: "sentence", sentence: "", checked: false });
   const removeSentence = removeSearchOption(sentenceInfo, setSentenceInfo);
   const changeSentence = changeSearchOption(sentenceInfo, setSentenceInfo);
 
@@ -119,6 +120,18 @@ const SearchCondition = (props) => {
                     }} />
                   </Box>
                   <Box>
+                    <Checkbox
+                      checked={mapData.checked}
+                      onChange={(event) => {
+                        changeObject(mapIndex, {checked: (event.target.checked) });
+                      }}
+                      value="checkedA"
+                      inputProps={{
+                        'aria-label': 'primary checkbox',
+                      }}
+                    />
+                  </Box>
+                  <Box>
                     <IconButton aria-label="Delete" onClick={() => removeObject(mapIndex)}>
                       <DeleteIcon fontSize="small" />
                     </IconButton>
@@ -148,6 +161,18 @@ const SearchCondition = (props) => {
                 }} />
               </Box>
               <Box>
+                <Checkbox
+                  checked={mapData.checked}
+                  onChange={(event) => {
+                    changeOcr(mapIndex, {checked: (event.target.checked) });
+                  }}
+                  value="checkedA"
+                  inputProps={{
+                    'aria-label': 'primary checkbox',
+                  }}
+                />
+              </Box>
+              <Box>
                 <IconButton aria-label="Delete" onClick={() => removeOcr(mapIndex)}>
                   <DeleteIcon fontSize="small" />
                 </IconButton>
@@ -170,6 +195,18 @@ const SearchCondition = (props) => {
                       value={[ {label: mapData.color }]}
                       onChange={(option) => {
                         changeColor(0, { color: option.value });
+                      }}
+                    />
+                  </Box>
+                  <Box>
+                    <Checkbox
+                      checked={mapData.checked}
+                      onChange={(event) => {
+                        changeColor(mapIndex, {checked: (event.target.checked) });
+                      }}
+                      value="checkedA"
+                      inputProps={{
+                        'aria-label': 'primary checkbox',
                       }}
                     />
                   </Box>
