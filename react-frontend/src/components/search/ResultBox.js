@@ -25,7 +25,17 @@ function getVideoUrl (video) {
   return url
 }
 
-function ResultBox({ imageSrc, width, height, onClick, frameInfo, videoNumber }) {
+function getSameVideo (videoNumber, videoList) {
+  let myVideos = []
+  for (const video of videoList) {
+    if (video['video'] == videoNumber)
+    myVideos.push(video['startSecond'])
+  }
+
+  return myVideos
+}
+
+function ResultBox({ imageSrc, width, height, onClick, frameInfo, videoNumber, videoList }) {
   const classes = useStyles()
   return (
     <div>
@@ -34,6 +44,7 @@ function ResultBox({ imageSrc, width, height, onClick, frameInfo, videoNumber })
           <div>
             <ReactPlayer url={getVideoUrl(videoNumber)} controls={true} />
           {frameInfo}
+          {/* {getSameVideo(videoNumber, videoList)} */}
           </div>
         </Popup>
       {/* </div> */}

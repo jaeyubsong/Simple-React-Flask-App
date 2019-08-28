@@ -82,7 +82,7 @@ class getDataClass(Resource):
 #    current_app.logger.info(returnList)
     response = jsonify(returnList)
     #response.headers.add('Access-Control-Allow-Origin', '*')
-    return 
+    return response 
 
 @cross_origin(origin='localhost', headers=['Content-Type', 'Authorization'])
 @ns.route("/upload")

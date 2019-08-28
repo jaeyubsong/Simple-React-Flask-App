@@ -41,6 +41,8 @@ function getImageUrl (video, frame) {
   return url
 }
 
+
+
 function SearchResult (props) {
   const [spacing] = useState(2)
 
@@ -59,6 +61,7 @@ function SearchResult (props) {
                   onClick={() => console.log(value)}
                   frameInfo={value['startSecond']}
                   videoNumber={value['video']}
+                  videoList={props.searchResult.data}
                 />
                 {/* {value} */}
               </Grid>
