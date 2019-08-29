@@ -31,6 +31,7 @@ services:
     user: ${CURRENT_UID}
     image: flask_backend
     container_name: flask_simple_app
+    network_mode: "host"
   mongo:
     image: mongo:4.0.10
     # command: chown -R ${CURRENT_UID} /data/db

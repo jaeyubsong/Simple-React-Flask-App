@@ -246,7 +246,7 @@ const SearchCondition = (props) => {
         </Grid>
 
       </Grid>
-      <button onClick={() => props.onClickSearch(objectInfo, ocrInfo, colorInfo)}>Search</button>
+      <button onClick={() => props.onClickSearch(objectInfo, ocrInfo, colorInfo, sentenceInfo)}>Search</button>
 
 
     </div>

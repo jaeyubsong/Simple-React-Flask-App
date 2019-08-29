@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
 from flask_restplus import Api, Resource, fields
+from api import get_scan_result
 
 import json
 import logging
@@ -15,9 +16,9 @@ cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 api = Api(app=app)
 ns = api.namespace('vbs', description='design vbs web')
 
-client = MongoClient('mongo', 27017)
+client = MongoClient('127.0.0.1', 27017)
 db = client.testdb
-col = db.allFrames_combined
+col = db.allFrames_test
 
 data_dir = '../ir.nist.gov/tv2019/V3C1/V3C1.webm.videos.shots/'
 
@@ -126,6 +127,43 @@ class fileQuery(Resource):
         cur_cond = {'text': item['text']}
       elif item['type'] == 'color':
         cur_cond = {'color': item['color']}
+      elif item['type'] == 'sentence':
+        current_app.logger.info('This is a sentence')
+        order_array, scan_dict = get_scan_result(item['sentence'])
+        
+        # x = col.find({'$or': scan_dict})
+        x = col.aggregate([
+          {
+            '$match': { 
+              'scanId': {
+                '$in': order_array
+              }
+            }
+          },
+          {
+            '$addFields': {
+              '_order': {
+                '$indexOfArray':[order_array, "$scanId"]
+              }
+            }
+          },
+          {
+            '$sort': {
+              '_order': 1
+            }
+          },
+          {"$limit": 1000}
+        ])
+        doc_list = []
+        for doc in x:
+          doc_list.append(doc)
+        current_app.logger.info('Result is')
+        current_app.logger.info(doc_list)
+        
+    
+        returnList = jsonify(doc_list)
+        return returnList
+        
 
       query.append(cur_cond)
       if item['checked'] == True:
