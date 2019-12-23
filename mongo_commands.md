@@ -85,6 +85,18 @@ db.allFrames_id.explain("executionStats").aggregate([
 ])
 ```
 
+- parse id with format "video_startFrame-endFrame"
+```
+db.scene_text.find().forEach( function(x){
+    var split_result = x._id.split('_')
+    var split_two = split_result[1].split('-')
+    x.video = parseInt(split_result[0], 10)
+    x.startFrame = parseInt(split_two[0], 10)
+    x.endFrame = parseInt(split_two[1], 10)
+    db.collection2.insert(x)
+} );
+```
+
 
 ### Useful commands
 - access mongoDB with shell
